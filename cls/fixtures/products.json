@@ -1,0 +1,267 @@
+[
+  {
+    "model": "cls.products",
+    "pk": 1,
+    "fields": {
+      "name": "Summer Rain",
+      "description": "Summer Rain signals a reset – channelling a particular sense of freedom, the magic of summer.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Basil Egypt Essential Oil, Spearmint Italy Essential Oil, Green Fig, Ginger Nigeria, Sandalwood, Tonka Beans",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 2,
+    "fields": {
+      "name": "Pluto",
+      "description": "There's no reason when it comes to love which is why you don't need any reasons to love this candle.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Rose petals Essential Oil, Italian Vanilla Essential Oil, Green Fig, Lavender, Citrus",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 3,
+    "fields": {
+      "name": "The Royal Pin",
+      "description": "This scent really evokes memories of family nights and will be a beautiful reminder of the sanctity of home and family.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Clove Buds, Carnation, Ylang Ylang, Papyrus, Haitian Vetiver",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 4,
+    "fields": {
+      "name": "Tree Hill",
+      "description": "If you're lost in the darkness this gentle sent will help you find your way back home.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Bamboo, Pimento,Hay, Labdanum, Myrrh, Cedarwood, Guaic Woods, Leather, Sandalwood",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 5,
+    "fields": {
+      "name": "Tree Hill",
+      "description": "If you're lost in the darkness this gentle sent will help you find your way back home.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Bamboo, Pimento,Hay, Labdanum, Myrrh, Cedarwood, Guaic Woods, Leather, Sandalwood",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 6,
+    "fields": {
+      "name": "Burning Violet",
+      "description": "As the candle consumes, the flowery accents are slowly wrapped in leather and rooted in dark woods.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Rose Petals, French Marigold, Rose Absolute, Violet, Birch Woods, Ebony Woods",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 7,
+    "fields": {
+      "name": "Heart On The Window",
+      "description": "A gentle sent that will carry you accross the seasons",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Green Rose Bud, Rosewater, Incense, Ginger, Cedarwood, Guaic Woods, Cistus Labdanum",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 8,
+    "fields": {
+      "name": "The Secret Of Us",
+      "description": "A scent evoking a velvety lipstick imprint. A vibrant and irresistible scent that will stay with you for a long time.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Rosewater, Morello Cherry, Violet, Orris Butter, Rice Powder",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 9,
+    "fields": {
+      "name": "White Ferrari",
+      "description": "A luxurious and calming scent to create an unique experience.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Blue Chamomile, Linen, White Cedarwood, Sweet Musk",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 10,
+    "fields": {
+      "name": "Wildflower",
+      "description": "A mishmash of scents that blends opoponax with rum, geranium with rosemary, and vanilla with sandalwood and oak moss.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Opopanax, Rum, Geranium, Labdanum, Rosemary, Moss, Sandalwood, Vanilla",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 11,
+    "fields": {
+      "name": "The Alchemist",
+      "description": "The echo of something familiar and new — all at once. The complex power of a symphony provokes endless interpretations as polyphonic notes reverberate in unison.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "OAnise, Bitter Orange, Ginger, Clove, Beeswax, Cedarwood, Bran",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 12,
+    "fields": {
+      "name": "Sparkle",
+      "description": "This candle will envelop your home in an addictive sensual halo while offering luminous joyful and uplifting sensations. Its wavering flame offers a soft light that reinforces the romantic and sensual atmosphere.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Blackcurrant liquor, Rose, Bergamot, Patchouli",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 13,
+    "fields": {
+      "name": "Sprind Day",
+      "description": "Recall the joyful and blooming atmosphere of a spring afternoon. This candle will fill your home with a delicate and joyful floral atmosphere. It captures the gentle light of a sunny spring afternoon and the fresh scent of blooming flowers.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Lily Of The Valley, Jasmine, Pear",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 14,
+    "fields": {
+      "name": "HOT",
+      "description": "Captures the and heartwarming atmosphere of a winter evening by the chimney, filling your home with the addictive and wintery scent of wood and chestnuts grilling in the chimney.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Pink Pepper Essence, Clove Oil, Orange Flower Absolute, Chestnut Accord, Gaïac Wood Accord, Cade Oil, Cashmeran, Vanilla Accord, Peru Balsam Resinoïd",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 15,
+    "fields": {
+      "name": "I Don't Understand but I Luv U",
+      "description": "This candle scent is pure, fresh and aquatic and will reinvigorate your home with a vivifying and peaceful energy. Its wavering flame increases the sensation of harmony and calm brought by the ocean.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Aquatic note, Red Seaweed, Coriander, Ambergris",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 16,
+    "fields": {
+      "name": "All The Stars",
+      "description": "Recall the soft and peaceful atmosphere of a lazy Sunday morning. This luxury candle will transform your home in a soft white cocoon.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Lily of the Valley, Iris, White Musks, Ambrette Seeds",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 17,
+    "fields": {
+      "name": "The Night Agent",
+      "description": "Its warm and smoky scent will make you feel relaxed and is an invitation to a quiet conviviality.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Rum absolute, Tobacco Leaf, Pink Pepper Vanilla",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 18,
+    "fields": {
+      "name": "Coraline",
+      "description": "A luminous fragrance distinguished by its energetic notes of orange, mandarin, and lemon.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Sweet orange, Italian mandarin, Italian lemon, petit grain, cardamom, caramel, musk",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 19,
+    "fields": {
+      "name": "Love Again",
+      "description": "The scents of freshly cut grass bring an infusion of freshness and softness with natural wood tones softened by moss that lends warmth, roundness, and comfort to the home fragrance.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Italian lemon, Mint leaves, Rosemary, Lavandin, Jasmine, Cedarwood, Musk ",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 20,
+    "fields": {
+      "name": "Eternal Sunshine",
+      "description": "A scent that evokes a garden in bloom with a blend of rose + geranium.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Cardamom, Clove bud, Black pepper, Cassis, Lavender, Peony, Rose, Muguet, Geranium.. ",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 21,
+    "fields": {
+      "name": "Heart Of Gold",
+      "description": "Embrace the evening with a soft, serene scent. Aromatic English lavender nestles among a cocooning note of white musk and night-blooming moonflowers.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Lavender, White Musk, Moonflower ",
+      "image": "fixtures/images/sc.png"
+    }
+  },
+  {
+    "model": "cls.products",
+    "pk": 22,
+    "fields": {
+      "name": "Fighting",
+      "description": "This earthy blend is one of our favourites when it comes to finding a sense of peace in your day.",
+      "price": "60",
+      "characteristics": "Suitable for small and medium-sized rooms. Fragrance gradually released and persistent (optimal after around 20 minutes). There is no limit on the size of the space as long as you keep an eye on the candle. Volume: 190g. Burning time: around 50 hours. Size: height 9cm; diameter 7,7cm.",
+      "ingredients": "Cedarwood, Olive leaf, White musk",
+      "image": "fixtures/images/sc.png"
+    }
+  }
+
+]
