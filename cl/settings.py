@@ -18,8 +18,8 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Media
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # my apps
     'cls',
     'rest_framework',
+    "corsheaders",
 
 
     'django.contrib.admin',
@@ -50,6 +51,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # Cors headers
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -120,6 +123,12 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Add your frontend's origin here
+    # "http://127.0.0.1:3000", # For other local setups
+]
+
 
 
 # Static files (CSS, JavaScript, Images)

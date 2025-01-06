@@ -19,7 +19,7 @@ const Home = () => {
 
       {/* Products snipper */}
       <div>
-        <h2 className="text-2xl font-bold my-4 text-center">OUR PRODUCTS</h2>
+        <h2 className="text-2xl font-bold my-4 text-center">OUR CANDLES</h2>
       </div>
 
       {/* CTAs */}
