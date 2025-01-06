@@ -38,3 +38,17 @@ p {
 .banner-img {
   width: 40rem;
 }
+
+.nav-border {
+  border-bottom: 1px solid #f6f3f3;
+}
+
+.main-btn {
+  border: 1px solid black;
+  border-bottom: 3px solid black;
+}
+
+.main-btn:hover {
+  transition: 0.3s;
+  border-bottom: 1px solid black;
+}
