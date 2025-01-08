@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../enpoints";
+import { fetchProducts } from "../endpoints";
 import Navbar from '../components/Navbar';
+import { useNavigate } from "react-router-dom";
 
 const Candles = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+
+  const handleProductClick = (productId) => {
+    navigate(`/candle/${productId}`);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,10 +26,12 @@ const Candles = () => {
       <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 m-8">
         {products.map((product) =>
           <div key={product.id}>
-            <img src={product.image} alt='{product.name}'/>
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
-            <p>{product.price}€</p>
+            <div onClick={() => handleProductClick(product.id)} className="cursor-pointer">
+              <img src={product.image} alt='{product.name}'/>
+              <h3>{product.name}</h3>
+              <p>{product.description}</p>
+              <p>{product.price}€</p>
+            </div>
           </div>
         )}
       </div>

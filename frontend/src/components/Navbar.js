@@ -1,8 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faUser, faBagShopping } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faUser, faBagShopping } from '@fortawesome/free-solid-svg-icons';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
+
 
 const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleIconClick = () => {
+    if (user) {
+      navigate('/dashboard')
+    } else {
+      navigate('/login')
+    }
+  };
+
   return(
     <nav className="flex justify-between items-center nav-border my-4">
       <div className='mx-2'>
@@ -21,7 +35,13 @@ const Navbar = () => {
         </div>
       </div>
       <div className='mx-2'>
-        <FontAwesomeIcon icon={faUser} size='lg' className='mx-2'/>
+        <FontAwesomeIcon icon={faUser} size='lg' className='mx-2 cursor-pointer' onClick={handleIconClick}/>
+        {user && (
+          <>
+            <div>{user[0].username}</div>
+            <button onClick={() => logout()}>Logout</button>
+          </>
+        )}
         <FontAwesomeIcon icon={faBagShopping} size='lg' className='mx-2' />
       </div>
     </nav>
