@@ -31,11 +31,14 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
+    product_name = serializers.ReadOnlyField(source='product.name')
+    product_price = serializers.ReadOnlyField(source='product.price')
+    product_image = serializers.ReadOnlyField(source='product.image.url')
     total_price = serializers.ReadOnlyField()
 
     class Meta:
         model = CartItem
-        fields = ['product', 'quantity', 'id', 'total_price']
+        fields = ['product', 'quantity', 'id', 'total_price', 'product_name', 'product_price', 'product_image']
 
     def get_total_price(self, obj):
         return obj.total_price()

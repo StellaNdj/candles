@@ -18,10 +18,10 @@ const Cart = () => {
         </div>
         {cartItems.map(item => (
         <div key={item.id} className="flex w-8/12 border-b-2 items-center justify-between">
-          <img className="w-40" src={item.product.image} alt={item.product.name} />
+          <img className="w-40" src={`http://localhost:8000/${item.product_image}`} alt={item.product_name} />
           <div>
-            <p>{item.quantity} x {item.product.name}</p>
-            <p className="font-semibold">{item.total_price} €</p>
+            <p>{item.quantity} x {item.product_name} ({item.product_price}€)</p>
+            <p className="font-semibold">{item.total_price}€</p>
           </div>
           <form
             onSubmit={(e) => {
