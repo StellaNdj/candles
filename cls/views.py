@@ -64,9 +64,14 @@ class CartItemViewSet(viewsets.ModelViewSet):
 
         cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
 
+        quantity_to_add = int(request.data.get('quantity', 1))
+
         if not created:
-            cart_item.quantity += 1
-        cart_item.save()
+            cart_item.quantity += quantity_to_add
+            cart_item.save()
+        else:
+            cart_item.quantity = quantity_to_add
+            cart_item.save()
 
         # Send back updated cart
         serializer = CartSerializer(cart)

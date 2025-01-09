@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchProduct } from "../endpoints";
+import { addToCart, fetchProduct } from "../endpoints";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
@@ -16,6 +16,13 @@ const Candle = () => {
     };
     fetchData()
   }, []);
+
+  const handleAddToCart = async (product, quantity) => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      await addToCart({token, product, quantity});
+    }
+  }
 
   if(!product) return <div>Loading...</div>
 
@@ -38,7 +45,24 @@ const Candle = () => {
               <p>{product.ingredients}</p>
             </div>
           </div>
-          <Button text={'Add to cart'}/>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleAddToCart(product.id, e.target.quantity.value)
+            }}
+
+            className="flex items-center"
+          >
+            <input
+              type="number"
+              name="quantity"
+              min={1}
+              defaultValue={1}
+              className="w-16 text-center border"
+            />
+            <button type="submit">Add to cart</button>
+          </form>
+          {/* <Button text={'Add to cart'}/> */}
         </div>
       </div>
       <div>

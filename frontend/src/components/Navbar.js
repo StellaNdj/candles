@@ -3,11 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faUser, faBagShopping } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import { useCart } from '../contexts/CartContext';
 
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { cartCount } = useCart();
 
   const handleIconClick = () => {
     if (user) {
@@ -51,6 +53,7 @@ const Navbar = () => {
           </>
         )}
         <FontAwesomeIcon icon={faBagShopping} size='lg' className='mx-2 cursor-pointer' onClick={handleCartClick} />
+        {user ? cartCount : 0}
       </div>
     </nav>
   )

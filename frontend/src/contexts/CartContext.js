@@ -16,7 +16,10 @@ export const CartProvider = ({children}) => {
         const cartDetails = await fetchCart({token});
         console.log(cartDetails)
         setCart(cartDetails[0]);
-        setCartItems(cartDetails[0].items)
+        const cartItems = cartDetails[0].items
+        setCartItems(cartItems);
+        const count = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+        setCartCount(count);
 
       } catch (error) {
         console.log('Error while fetching cart context:', error)

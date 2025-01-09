@@ -1,6 +1,9 @@
-const Button = ({text}) => {
+const Button = ({text, onClick}) => {
   return (
-    <button className="main-btn p-2 my-4">
+    <button
+      className="main-btn p-2 my-4"
+      onClick={onClick}
+    >
       {text}
     </button>
   )

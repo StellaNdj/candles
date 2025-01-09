@@ -60,9 +60,11 @@ export const fetchCart = async ({token}) => {
   }
 }
 
-export const addToCart = async ({token}) => {
+export const addToCart = async ({token, product, quantity}) => {
+  console.log(token, product, quantity)
   try {
     const response = await axios.post(`${endpointAPI}cart/cart-items/`, {
+      data: { product, quantity },
       headers: {
         'Authorization' : `Bearer ${token}`
       }
