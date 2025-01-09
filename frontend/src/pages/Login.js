@@ -14,6 +14,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const tokenInfo = await loginUser({ username, password });
+      console.log(tokenInfo.access);
       login(tokenInfo.access);
       const userDetails = await fetchUserDetails({token: tokenInfo.access});
       setUser(userDetails);

@@ -45,3 +45,31 @@ export const fetchUserDetails = async ({token}) => {
     console.log('Error while fetching user details', error)
   }
 }
+
+export const fetchCart = async ({token}) => {
+  try {
+    const response = await axios.get(`${endpointAPI}cart/`, {
+      headers: {
+        'Authorization' : `Bearer ${token}`
+      }
+    })
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log('Error while fetching the cart:', error)
+  }
+}
+
+export const addToCart = async ({token}) => {
+  try {
+    const response = await axios.post(`${endpointAPI}cart/cart-items/`, {
+      headers: {
+        'Authorization' : `Bearer ${token}`
+      }
+    })
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log('Error while adding to cart:', error)
+  }
+}

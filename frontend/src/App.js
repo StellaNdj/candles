@@ -6,23 +6,29 @@ import Candle from './pages/Candle';
 import AuthProvider from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
+import { CartProvider } from './contexts/CartContext';
+import Cart from './pages/Cart';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          {/* Public routes */}
-          <Route path='/' element={<Home/>}/>
-          <Route path='/login' element={<Login/>}/>
+    <CartProvider>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            {/* Public routes */}
+            <Route path='/' element={<Home/>}/>
+            <Route path='/login' element={<Login/>}/>
+            {/* <Route path='/cart' element={<Cart/>}/> */}
 
-          {/* Private routes */}
-          <Route path="/candles" element={<ProtectedRoute element={<Candles />} />} />
-          <Route path="/candle/:candleId" element={<ProtectedRoute element={<Candle />} />}/>
+            {/* Private routes */}
+            <Route path="/candles" element={<ProtectedRoute element={Candles} />} />
+            <Route path="/candle/:candleId" element={<ProtectedRoute element={Candle} />} />
+            <Route path="/cart" element={<ProtectedRoute element={Cart} />} />
 
-        </Routes>
-      </Router>
-    </AuthProvider>
+          </Routes>
+        </Router>
+      </AuthProvider>
+    </CartProvider>
   );
 }
 

@@ -17,6 +17,14 @@ const Navbar = () => {
     }
   };
 
+  const handleCartClick = () => {
+    if (user) {
+      navigate('/cart')
+    } else {
+      navigate('/login')
+    }
+  }
+
   return(
     <nav className="flex justify-between items-center nav-border my-4">
       <div className='mx-2'>
@@ -42,7 +50,7 @@ const Navbar = () => {
             <button onClick={() => logout()}>Logout</button>
           </>
         )}
-        <FontAwesomeIcon icon={faBagShopping} size='lg' className='mx-2' />
+        <FontAwesomeIcon icon={faBagShopping} size='lg' className='mx-2 cursor-pointer' onClick={handleCartClick} />
       </div>
     </nav>
   )
