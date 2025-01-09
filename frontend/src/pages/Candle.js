@@ -3,11 +3,13 @@ import { addToCart, fetchProduct } from "../endpoints";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
+import { useCart } from "../contexts/CartContext";
 
 const Candle = () => {
   const [product, setProduct] = useState();
 
   const { candleId } = useParams();
+  const {fetchCartData} = useCart()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +23,7 @@ const Candle = () => {
     const token = localStorage.getItem('accessToken');
     if (token) {
       await addToCart({token, product, quantity});
+      fetchCartData()
     }
   }
 
@@ -48,7 +51,8 @@ const Candle = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              handleAddToCart(product.id, e.target.quantity.value)
+              const quantity_to_add = parseInt(e.target.quantity.value, 10)
+              handleAddToCart(product.id, quantity_to_add)
             }}
 
             className="flex items-center"

@@ -53,7 +53,6 @@ export const fetchCart = async ({token}) => {
         'Authorization' : `Bearer ${token}`
       }
     })
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log('Error while fetching the cart:', error)
@@ -61,17 +60,31 @@ export const fetchCart = async ({token}) => {
 }
 
 export const addToCart = async ({token, product, quantity}) => {
-  console.log(token, product, quantity)
   try {
-    const response = await axios.post(`${endpointAPI}cart/cart-items/`, {
-      data: { product, quantity },
+    const response = await axios.post(`${endpointAPI}cart-items/`,
+      { product, quantity },
+      {
       headers: {
         'Authorization' : `Bearer ${token}`
       }
     })
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log('Error while adding to cart:', error)
+  }
+}
+
+export const removeFromCart = async({token, cartItemId, quantity}) => {
+  try {
+    const response = await axios.delete(`${endpointAPI}cart-items/${cartItemId}/`, {
+      data: { quantity },
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    return response.data;
+
+  } catch (error) {
+    console.log('Error while removing from the cart:', error)
   }
 }

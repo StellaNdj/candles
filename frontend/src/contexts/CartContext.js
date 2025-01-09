@@ -14,7 +14,6 @@ export const CartProvider = ({children}) => {
     if (token) {
       try {
         const cartDetails = await fetchCart({token});
-        console.log(cartDetails)
         setCart(cartDetails[0]);
         const cartItems = cartDetails[0].items
         setCartItems(cartItems);

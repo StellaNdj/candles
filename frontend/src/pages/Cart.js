@@ -1,9 +1,19 @@
 import { useEffect } from "react";
 import { useCart } from "../contexts/CartContext";
 import Navbar from "../components/Navbar";
+import { removeFromCart } from '../endpoints';
 
 const Cart = () => {
   const { cart, cartItems, fetchCartData } = useCart();
+
+  const handleRemoveFromCart = async (cartItemId, quantity) => {
+    const token = localStorage.getItem('accessToken');
+
+    if(token) {
+      await removeFromCart({ token, cartItemId, quantity })
+      fetchCartData();
+    }
+  }
 
   useEffect(() => {
     fetchCartData()
@@ -26,6 +36,8 @@ const Cart = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              const quantity_to_remove = parseInt(e.target.quantity.value, 10);
+              handleRemoveFromCart(item.id, quantity_to_remove)
             }}
             className="flex items-center"
           >
