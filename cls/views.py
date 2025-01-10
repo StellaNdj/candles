@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product, Cart, CartItem
+from .models import Product, Cart, CartItem, Order, OrderItem, Customer
 from django.contrib.auth.models import User
-from .serializers import ProductSerializer, UserSerializer, UserDetailsSerializer, CartSerializer, CartItemSerializer
+from .serializers import ProductSerializer, UserSerializer, UserDetailsSerializer, CartSerializer, CartItemSerializer, OrderItemSerializer, OrderSerializer
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action
 
 # Create your views here.
 
@@ -90,4 +91,47 @@ class CartItemViewSet(viewsets.ModelViewSet):
             cart_item.delete()
 
         serializer = CartSerializer(cart)
+        return Response(serializer.data)
+
+
+class OrderViewSet(viewsets.ModelViewSet):
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = Order.objects.all()
+
+    def get_queryset(self):
+        return Order.objects.filter(customer__user=self.request.user)
+
+
+    @action(detail=False, methods=['post'], url_path='place-order')
+    def place_order(self, request):
+        customer = get_object_or_404(Customer, user=request.user)
+        cart_id = request.data.get('cart_id')
+        cart = get_object_or_404(Cart, id=cart_id)
+
+         # Check if the cart has any items
+        if not cart.items.exists():
+            return Response({"error": "Cart is empty. No items to place an order."})
+
+        # Create an order
+        order = Order.objects.create(customer=customer)
+        order.save()
+
+
+        # Transfer CartItems into OrderItems
+        for cart_item in cart.items.all():
+            OrderItem.objects.create(
+                order = order,
+                product = cart_item.product,
+                quantity = cart_item.quantity,
+                price = cart_item.product.price
+            )
+
+        # Calculate total price
+        order.calculate_and_set_total_price()
+
+        # Clear cart
+        cart.items.all().delete()
+
+        serializer = OrderSerializer(order)
         return Response(serializer.data)
