@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faUser, faBagShopping } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faUser, faBagShopping, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
@@ -46,14 +46,16 @@ const Navbar = () => {
       </div>
       <div className='mx-2'>
         <FontAwesomeIcon icon={faUser} size='lg' className='mx-2 cursor-pointer' onClick={handleIconClick}/>
+        <FontAwesomeIcon icon={faBagShopping} size='lg' className='mx-2 cursor-pointer' onClick={handleCartClick} />
+        {user ?
+            <span className='shopping-icon'>{cartCount}</span> : <span className='shopping-icon'>0</span>
+        }
         {user && (
           <>
-            <div>{user[0].username}</div>
-            <button onClick={() => logout()}>Logout</button>
+            <span className='user-icon'>{user[0].username}</span>
+            <FontAwesomeIcon icon={faRightFromBracket} size='lg' className='mx-2 cursor-pointer' onClick={() => logout() } />
           </>
         )}
-        <FontAwesomeIcon icon={faBagShopping} size='lg' className='mx-2 cursor-pointer' onClick={handleCartClick} />
-        {user ? cartCount : 0}
       </div>
     </nav>
   )

@@ -52,3 +52,19 @@ p {
   transition: 0.3s;
   border-bottom: 1px solid black;
 }
+
+.shopping-icon {
+  position: relative;
+  right: 1.4rem;
+  color: white;
+  font-size: 0.6rem;
+  padding: 0.2rem;
+  font-weight: bold;
+}
+
+.user-icon {
+  position: relative;
+  right: 4.5rem;
+  top: 1rem;
+  font-size: 0.7rem;
+}

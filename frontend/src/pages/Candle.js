@@ -4,9 +4,13 @@ import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
 import { useCart } from "../contexts/CartContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 const Candle = () => {
   const [product, setProduct] = useState();
+  const [charOpen, setCharOpen] = useState(false);
+  const [ingOpen, setIngOpen] = useState(false);
 
   const { candleId } = useParams();
   const {fetchCartData} = useCart()
@@ -38,14 +42,33 @@ const Candle = () => {
           <h3 className="text-2xl font-bold">{product.name}</h3>
           <p className="text-lg my-2">{product.description}</p>
           <p className="text-lg">{product.price}€</p>
-          <div className="border-t-2 border-black border-b-2 my-2">
+          <div className="border-t-2 border-black border-b-2 my-2 flex justify-between">
             <div>
-              <h5 className="text-lg font-bold">Characteristics</h5>
-              <p>{product.characteristics}</p>
+              <div className="flex items-baseline">
+                <h5 className="text-lg font-bold">Characteristics</h5>
+                {charOpen ? <FontAwesomeIcon icon={faMinus} size='sm' className="ml-2 cursor-pointer" onClick={() => setCharOpen(!charOpen)}/> : <FontAwesomeIcon icon={faPlus} size='sm' className="ml-2 cursor-pointer" onClick={() => setCharOpen(!charOpen)}/>}
+              </div>
+              {charOpen && (
+                <>
+                {product.characteristics.split('. ').map((sentence, index) => (
+                  <p key={index}>{sentence}{index < product.characteristics.split('. ').length - 1 ? '.' : ''}</p>
+                ))}
+              </>
+              )}
             </div>
             <div>
-              <h5 className="text-lg font-bold">Ingredients</h5>
-              <p>{product.ingredients}</p>
+              <div className="flex items-baseline">
+                <h5 className="text-lg font-bold">Ingredients</h5>
+                {ingOpen ? <FontAwesomeIcon icon={faMinus} size="sm" className="ml-2 cursor-pointer" onClick={() => setIngOpen(!ingOpen)}/> : <FontAwesomeIcon icon={faPlus} size="sm" className="ml-2 cursor-pointer" onClick={() => setIngOpen(!ingOpen)}/>}
+              </div>
+              {ingOpen && (
+                <>
+                  {product.ingredients.split(',').map((ingredient, index) => (
+                    <p key={index}>{ingredient}{index < product.ingredients.split(', ').length - 1 ? '.' : ''}</p>
+                  ))}
+                </>
+              )}
+
             </div>
           </div>
           <form
@@ -62,11 +85,10 @@ const Candle = () => {
               name="quantity"
               min={1}
               defaultValue={1}
-              className="w-16 text-center border"
+              className="w-16 text-center border mr-8"
             />
-            <button type="submit">Add to cart</button>
+            <Button text={'Add to cart'} type={'submit'}/>
           </form>
-          {/* <Button text={'Add to cart'}/> */}
         </div>
       </div>
       <div>

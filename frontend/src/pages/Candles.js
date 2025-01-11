@@ -27,9 +27,9 @@ const Candles = () => {
         {products.map((product) =>
           <div key={product.id}>
             <div onClick={() => handleProductClick(product.id)} className="cursor-pointer">
-              <img src={product.image} alt='{product.name}'/>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
+              <img src={product.image} alt={product.name}/>
+              <h3 className="font-bold text-lg">{product.name}</h3>
+              <p>{product.description.substring(0, 50)}[..]</p>
               <p>{product.price}€</p>
             </div>
           </div>

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { fetchUserDetails, loginUser } from "../endpoints";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -26,29 +27,35 @@ const Login = () => {
 
   return (
     <div>
-        <h1>Login</h1>
-        <form onSubmit={handleLogin}>
-            <div>
-                <label className="block text-sm/6 font-medium text-gray-900">Username:</label>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
-                />
-            </div>
-            <div>
-                <label className="block text-sm/6 font-medium text-gray-900">Password:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
-                />
-            </div>
-            <button type="submit">Login</button>
-        </form>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <h1 className="text-5xl font-bold bg-black text-white p-4">Login</h1>
+        <div className="flex justify-center m-8">
+          <form onSubmit={handleLogin}>
+              <div>
+                  <label className="block font-medium text-gray-900 text-lg">Username</label>
+                  <input
+                      type="text"
+                      value={username}
+                      placeholder="ex: Ling"
+                      onChange={(e) => setUsername(e.target.value)}
+                      className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
+                  />
+              </div>
+              <div>
+                  <label className="block font-medium text-gray-900 text-lg">Password</label>
+                  <input
+                      type="password"
+                      value={password}
+                      placeholder="ex: Your password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
+                  />
+              </div>
+              <div className="flex justify-center">
+                <Button type={'submit'} text={'Login'}/>
+              </div>
+          </form>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+        </div>
     </div>
 );
 
