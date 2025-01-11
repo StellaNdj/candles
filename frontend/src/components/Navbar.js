@@ -35,7 +35,7 @@ const Navbar = () => {
       <div className=''>
         <div className='flex justify-center'>
           <Link to='/'>
-            <img src="Candlelit.png" alt={'Candlelit logo'} className="size-20"/>
+            <img src="/Candlelit.png" alt={'Candlelit logo'} className="size-20"/>
           </Link>
         </div>
         <div className='flex my-2'>

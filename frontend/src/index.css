@@ -68,3 +68,11 @@ p {
   top: 1rem;
   font-size: 0.7rem;
 }
+
+.cview-safe {
+  background-color: #b5b5b4;
+}
+
+.cview-img-banner {
+  width: 40%
+}

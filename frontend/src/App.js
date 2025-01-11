@@ -18,7 +18,6 @@ function App() {
             {/* Public routes */}
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
-            {/* <Route path='/cart' element={<Cart/>}/> */}
 
             {/* Private routes */}
             <Route path="/candles" element={<ProtectedRoute element={Candles} />} />

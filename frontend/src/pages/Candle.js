@@ -68,7 +68,6 @@ const Candle = () => {
                   ))}
                 </>
               )}
-
             </div>
           </div>
           <form
@@ -91,8 +90,26 @@ const Candle = () => {
           </form>
         </div>
       </div>
-      <div>
-        <img src="cview.png" alt="candle view banner"/>
+      <div className='flex justify-evenly items-center cview-safe p-8'>
+        <img src="/cviewbanner.png" alt="candle view banner" className='cview-img-banner'/>
+        <div className="grid grid-cols-2 gap-4 w-1/2">
+            <div className="text-center">
+              <h3 className="font-bold text-2xl">BE SAFE</h3>
+              <p>Always follow the safety instructions when burning candles.</p>
+            </div>
+            <div className="text-center">
+              <h3 className="font-bold text-2xl">TRIM IT</h3>
+              <p>Please trim wick to 1/4 before burning to allow for a clean burn.</p>
+            </div>
+            <div className="text-center">
+              <h3 className="font-bold text-2xl">MELT IT</h3>
+              <p>Allow candle to burn to the edge of the vessel for a longer burn. Do not burn for more than 3 hours at a time.</p>
+            </div>
+            <div className="text-center">
+              <h3 className="font-bold text-2xl">SNUFF IT</h3>
+              <p>Never leave a candle burning unattended or within reach of drafts, pets, or small children.</p>
+            </div>
+        </div>
       </div>
     </>
   )
