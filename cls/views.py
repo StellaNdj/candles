@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
-
+from rest_framework.generics import RetrieveUpdateAPIView
 # Create your views here.
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -33,15 +33,12 @@ class UserDetailsViewSet(viewsets.ModelViewSet):
             "email": user.email
         })
 
-class ProfileViewSet(viewsets.ModelViewSet):
+class ProfileView(RetrieveUpdateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserDetailsSerializer
 
-    def get_queryset(self):
-        return User.objects.select_related('customer').filter(customer=self.request.user.customer)
-
     def get_object(self):
-        # Return the authenticated user
+        # Return the currently authenticated user
         return self.request.user
 
 # Utility function to get or create a cart
