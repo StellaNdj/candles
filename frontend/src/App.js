@@ -8,6 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import { CartProvider } from './contexts/CartContext';
 import Cart from './pages/Cart';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/candles" element={<ProtectedRoute element={Candles} />} />
             <Route path="/candle/:candleId" element={<ProtectedRoute element={Candle} />} />
             <Route path="/cart" element={<ProtectedRoute element={Cart} />} />
+            <Route path='/dashboard' element={<ProtectedRoute element={Dashboard}/>} />
 
           </Routes>
         </Router>

@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useCart } from "../contexts/CartContext";
 import Navbar from "../components/Navbar";
-import { removeFromCart } from '../endpoints';
+import { placeOrder, removeFromCart } from '../endpoints';
+import Button from '../components/Button';
 
 const Cart = () => {
   const { cart, cartItems, fetchCartData } = useCart();
@@ -12,6 +13,13 @@ const Cart = () => {
     if(token) {
       await removeFromCart({ token, cartItemId, quantity })
       fetchCartData();
+    }
+  }
+
+  const handlePlaceOrder = async (cart_id) => {
+    const token = localStorage.getItem('accessToken')
+    if (token) {
+      await placeOrder({token, cart_id})
     }
   }
 
@@ -54,6 +62,7 @@ const Cart = () => {
         </div>
       ))}
         <h3>Total: {cart.total_price}€</h3>
+        <Button text={'Place Order'} onClick={() => handlePlaceOrder(cart.id)} />
     </div>
     </>
   )

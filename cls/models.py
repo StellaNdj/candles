@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -67,7 +68,16 @@ class Customer(models.Model):
     @receiver(post_save, sender=User)
     def create_customer_profile(sender, instance, created, **kwargs):
         if created:
-            Customer.objects.create(user=instance)
+            Customer.objects.create(
+                user=instance,
+                first_name=instance.first_name,
+                last_name=instance.last_name
+            )
+        else:
+            customer = instance.customer
+            customer.first_name = instance.first_name
+            customer.last_name = instance.last_name
+            customer.save()
 
     @receiver(post_save, sender=User)
     def save_customer_profile(sender, instance, **kwargs):
@@ -93,6 +103,19 @@ class Order(models.Model):
         self.total_price = total
         self.save()
 
+    def save(self, *args, **kwargs):
+        # Check if customer has complete shipping information
+        required_fields = [
+            self.customer.street_address,
+            self.customer.city,
+            self.customer.state,
+            self.customer.country,
+            self.customer.postal_code,
+        ]
+        if not all(required_fields):
+            raise ValueError("Shipping information is incomplete. Please complete your profile.")
+        super().save(*args, **kwargs)
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
@@ -110,3 +133,22 @@ class OrderItem(models.Model):
         if not self.price:
             self.price = self.product.price
         super().save(*args, **kwargs)
+
+# Review model
+class Review(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    rating = models.PositiveIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(5)]
+    )
+    date_created = models.DateField(auto_now_add=True)
+    comment = models.TextField()
+
+    def __str__(self):
+        return f"Review by ${self.customer.first_name} for ${self.product.name}"
+
+    def average_rating(self):
+        reviews = self.reviews.all()
+        if reviews.exists():
+            return reviews.aggregate(models.Avg('rating'))['rating_avg']
+        return 0

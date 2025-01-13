@@ -53,6 +53,7 @@ export const fetchCart = async ({token}) => {
         'Authorization' : `Bearer ${token}`
       }
     })
+    console.log(response.data)
     return response.data;
   } catch (error) {
     console.log('Error while fetching the cart:', error)
@@ -86,5 +87,49 @@ export const removeFromCart = async({token, cartItemId, quantity}) => {
 
   } catch (error) {
     console.log('Error while removing from the cart:', error)
+  }
+}
+
+export const placeOrder = async ({token, cart_id}) => {
+  try {
+    const response = await axios.post(`${endpointAPI}orders/place-order/`,
+      { cart_id },
+      {
+      headers: {
+        'Authorization' : `Bearer ${token}`
+      }
+    })
+    return response.data;
+  } catch (error) {
+    console.log('Error while placing order', error)
+  }
+}
+
+export const getReviews = async ({token, productId}) => {
+  try {
+    const response = await axios.get(`${endpointAPI}products/${productId}/reviews/`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log('Errow while gettings review:', error)
+  }
+}
+
+export const addReview = async ({token, productId, comment, rating}) => {
+  try {
+    const response = await axios.post(`${endpointAPI}products/${productId}/reviews/`, {
+      data: { rating, comment },
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log('Error while adding a review', error)
   }
 }

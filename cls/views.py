@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product, Cart, CartItem, Order, OrderItem, Customer
+from .models import Product, Cart, CartItem, Order, OrderItem, Customer, Review
 from django.contrib.auth.models import User
-from .serializers import ProductSerializer, UserSerializer, UserDetailsSerializer, CartSerializer, CartItemSerializer, OrderItemSerializer, OrderSerializer
+from .serializers import ProductSerializer, UserSerializer, UserDetailsSerializer, CartSerializer, CartItemSerializer, OrderItemSerializer, OrderSerializer, ReviewSerialier
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 
 # Create your views here.
 
@@ -32,6 +33,17 @@ class UserDetailsViewSet(viewsets.ModelViewSet):
             "email": user.email
         })
 
+class ProfileViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserDetailsSerializer
+
+    def get_queryset(self):
+        return User.objects.select_related('customer').filter(customer=self.request.user.customer)
+
+    def get_object(self):
+        # Return the authenticated user
+        return self.request.user
+
 # Utility function to get or create a cart
 def get_cart(self):
     cart, created = Cart.objects.get_or_create(user=self.request.user)
@@ -41,6 +53,9 @@ class CartViewSet(viewsets.ModelViewSet):
     serializer_class = CartSerializer
     permission_classes = [IsAuthenticated]
     queryset = Cart.objects.all()
+
+    def get_queryset(self):
+        return Cart.objects.filter(user=self.request.user)
 
     def retrieve(self, request, *args, **kwargs):
         cart = get_cart(self)
@@ -106,6 +121,10 @@ class OrderViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'], url_path='place-order')
     def place_order(self, request):
         customer = get_object_or_404(Customer, user=request.user)
+
+        if not all([customer.street_address, customer.city, customer.state, customer.country, customer.postal_code]):
+            raise ValidationError("Shipping information is incomplete. Please complete your profile.")
+
         cart_id = request.data.get('cart_id')
         cart = get_object_or_404(Cart, id=cart_id)
 
@@ -134,4 +153,36 @@ class OrderViewSet(viewsets.ModelViewSet):
         cart.items.all().delete()
 
         serializer = OrderSerializer(order)
+        return Response(serializer.data)
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    serializer_class = ReviewSerialier
+    permission_classes = [IsAuthenticated]
+    queryset = Review.objects.all()
+
+    def get_queryset(self, *args, **kwargs):
+        product_id = self.kwargs.get('product_id')
+        if product_id:
+            return Review.objects.filter(product_id=product_id)
+        return Review.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        # Get a customer
+        customer = get_object_or_404(Customer, user=request.user)
+
+        # Get a product
+        product_id = self.kwargs.get('product_id')
+        product = get_object_or_404(Product, id=product_id)
+
+        comment = request.data.get('comment')
+        rating = request.data.get('rating')
+
+        review = Review.objects.create(
+            customer = customer,
+            product = product,
+            comment = comment,
+            rating = rating
+        )
+
+        serializer = ReviewSerialier(review)
         return Response(serializer.data)

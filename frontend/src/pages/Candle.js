@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { addToCart, fetchProduct } from "../endpoints";
+import { addToCart, fetchProduct, getReviews, addReview } from "../endpoints";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
@@ -11,14 +11,21 @@ const Candle = () => {
   const [product, setProduct] = useState();
   const [charOpen, setCharOpen] = useState(false);
   const [ingOpen, setIngOpen] = useState(false);
+  const [reviews, setReviews] = useState()
 
   const { candleId } = useParams();
   const {fetchCartData} = useCart()
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = localStorage.getItem('accessToken');
       const data = await fetchProduct({productId: candleId});
       setProduct(data);
+
+      if (token) {
+        const reviewData = await getReviews({token, productId: candleId});
+        setReviews(reviewData);
+      }
     };
     fetchData()
   }, []);
@@ -32,6 +39,7 @@ const Candle = () => {
   }
 
   if(!product) return <div>Loading...</div>
+  if (!reviews) return <div>Loading...</div>
 
   return(
     <>
@@ -110,6 +118,16 @@ const Candle = () => {
               <p>Never leave a candle burning unattended or within reach of drafts, pets, or small children.</p>
             </div>
         </div>
+      </div>
+      <div>
+        {reviews.map((review) =>
+          <div key={review.id}>
+            <p>{review.date_created}</p>
+            <p>{review.rating}</p>
+            <p>{review.comment}</p>
+          </div>
+        )}
+
       </div>
     </>
   )
