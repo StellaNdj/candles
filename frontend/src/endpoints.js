@@ -53,7 +53,6 @@ export const fetchCart = async ({token}) => {
         'Authorization' : `Bearer ${token}`
       }
     })
-    console.log(response.data)
     return response.data;
   } catch (error) {
     console.log('Error while fetching the cart:', error)
@@ -131,5 +130,21 @@ export const addReview = async ({token, productId, comment, rating}) => {
     return response.data;
   } catch (error) {
     console.log('Error while adding a review', error)
+  }
+}
+
+export const updateProfile = async ({token, formData}) => {
+  try {
+    const response = await axios.put(`${endpointAPI}profile/`,
+      formData,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      console.log(response.data);
+      return response.data;
+  } catch (error) {
+    console.log('Error while updating the data', error)
   }
 }
