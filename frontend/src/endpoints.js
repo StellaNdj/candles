@@ -142,7 +142,6 @@ export const updateProfile = async ({token, formData}) => {
           'Authorization': `Bearer ${token}`
         }
       })
-      console.log(response.data);
       return response.data;
   } catch (error) {
     console.log('Error while updating the data', error)

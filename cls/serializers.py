@@ -104,6 +104,9 @@ class OrderSerializer(serializers.ModelSerializer):
         return obj.total_price()
 
 class ReviewSerialier(serializers.ModelSerializer):
+    customer_first_name = serializers.ReadOnlyField(source='customer.first_name')
+    customer_last_name = serializers.ReadOnlyField(source='customer.last_name')
+
     class Meta:
         model = Review
         fields = '__all__'

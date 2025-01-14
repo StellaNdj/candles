@@ -123,6 +123,7 @@ const Candle = () => {
         {reviews.map((review) =>
           <div key={review.id}>
             <p>{review.date_created}</p>
+            <p>{review.customer_first_name} {review.customer_last_name}</p>
             <p>{review.rating}</p>
             <p>{review.comment}</p>
           </div>

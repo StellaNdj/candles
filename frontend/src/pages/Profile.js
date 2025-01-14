@@ -36,6 +36,7 @@ const Profile = () => {
 
     if (token) {
       await updateProfile({token, formData})
+      alert('Profile updated!')
     }
   }
 
