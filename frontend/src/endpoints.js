@@ -89,10 +89,27 @@ export const removeFromCart = async({token, cartItemId, quantity}) => {
   }
 }
 
-export const placeOrder = async ({token, cart_id}) => {
+export const makePayment = async ({token, cart_id, paymentForm}) => {
+  try {
+    const response = await axios.post(`${endpointAPI}orders/simulate-payment/`,
+      paymentForm, cart_id,
+      {
+        headers: {
+          'Authorization' : `Bearer ${token}`
+        }
+    })
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log('Error while making payment', error)
+  }
+}
+
+
+export const placeOrder = async ({token, cart_id, payment_id}) => {
   try {
     const response = await axios.post(`${endpointAPI}orders/place-order/`,
-      { cart_id },
+      { cart_id, payment_id },
       {
       headers: {
         'Authorization' : `Bearer ${token}`

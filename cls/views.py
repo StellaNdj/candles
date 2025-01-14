@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product, Cart, CartItem, Order, OrderItem, Customer, Review
+from .models import Product, Cart, CartItem, Order, OrderItem, Customer, Review, Payment
 from django.contrib.auth.models import User
 from .serializers import ProductSerializer, UserSerializer, UserDetailsSerializer, CartSerializer, CartItemSerializer, OrderItemSerializer, OrderSerializer, ReviewSerialier
 from rest_framework import viewsets
@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import RetrieveUpdateAPIView
+from django.utils import timezone
 # Create your views here.
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -122,6 +123,10 @@ class OrderViewSet(viewsets.ModelViewSet):
         if not all([customer.street_address, customer.city, customer.state, customer.country, customer.postal_code]):
             raise ValidationError("Shipping information is incomplete. Please complete your profile.")
 
+        # Get payment details
+        payment_id = request.data.get('payment_id')
+        payment = get_object_or_404(Payment, id=payment_id, status='Completed', order=None)
+
         cart_id = request.data.get('cart_id')
         cart = get_object_or_404(Cart, id=cart_id)
 
@@ -146,11 +151,70 @@ class OrderViewSet(viewsets.ModelViewSet):
         # Calculate total price
         order.calculate_and_set_total_price()
 
+        # Link the payment to the order
+        payment.order = order
+        payment.save()
+
         # Clear cart
         cart.items.all().delete()
 
         serializer = OrderSerializer(order)
         return Response(serializer.data)
+
+    @action(detail=False, methods=['POST'], url_path='simulate-payment')
+    def simulate_payment(self, request):
+        # Extract the data from the request
+        cart_id = request.data.get('cart_id')
+        payment_method = request.data.get('payment_method', 'Card')
+        card_number = request.data.get('card_number')
+        card_expiry = request.data.get('card_expiry')
+        card_cvv = request.data.get('card_cvv')
+
+        # Get cart
+        cart = get_object_or_404(Cart, id=cart_id, user=request.user)
+
+        # Ensure the cart isn't empty
+        if not cart.items.exists():
+            return Response({"error": "Cart is empty. Cannot simulate payment."})
+
+        # Simulate failures and success
+        if payment_method == 'Paypal':
+            transaction_status = 'Failed'
+            failure_reason = 'Paypal simulate failure'
+        elif card_number and card_number.startswith('1'):
+            transaction_status = 'Failed'
+            failure_reason = 'Card with 1 simulate failure'
+        else:
+            transaction_status = 'Completed'
+            failure_reason = None
+
+
+        # Create temporary payment, no order linked yet
+        payment = Payment.objects.create(
+            order = None, # No order linked yet
+            payment_method = payment_method,
+            status = transaction_status,
+            payment_date = timezone.now(),
+            amount = sum(item.product.price * item.quantity for item in cart.items.all()),
+            transaction_id = f"TRANS-{timezone.now().timestamp()}",
+            card_number=card_number[-4:] if card_number else None,
+            card_expiry=card_expiry,
+            card_cvv=card_cvv,
+        )
+
+        # Response
+        response_data = {
+            "message": f"Payment {'successful' if transaction_status == 'Completed' else 'failed'}.",
+            "payment_status": payment.status,
+            "transaction_id": payment.transaction_id,
+            "payment_id": payment.id,
+        }
+
+        if failure_reason:
+            response_data['failure_reason'] = failure_reason
+
+        return Response(response_data)
+
 
 class ReviewViewSet(viewsets.ModelViewSet):
     serializer_class = ReviewSerialier

@@ -134,6 +134,25 @@ class OrderItem(models.Model):
             self.price = self.product.price
         super().save(*args, **kwargs)
 
+# Payment
+class Payment(models.Model):
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='payment', blank=True, null=True)
+    payment_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+        max_length=20,
+        choices=[('Pending', 'Pending'), ('Completed', 'Completed'), ('Failed', 'Failed')],
+        default='Pending'
+    )
+    payment_method = models.CharField(max_length=50, choices=[('Card', 'Card'), ('PayPal', 'PayPal')])
+    transaction_id = models.CharField(max_length=100, blank=True, null=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    card_number = models.CharField(max_length=16, blank=True, null=True)
+    card_expiry = models.CharField(max_length=5, blank=True, null=True)  # MM/YY format
+    card_cvv = models.CharField(max_length=3, blank=True, null=True)
+
+    def __str__(self):
+        return f"Payment for Order {self.order.id} - {self.status}"
+
 # Review model
 class Review(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
