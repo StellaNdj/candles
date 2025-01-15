@@ -90,9 +90,10 @@ export const removeFromCart = async({token, cartItemId, quantity}) => {
 }
 
 export const makePayment = async ({token, cart_id, paymentForm}) => {
+  console.log({ ...paymentForm, cart_id });
   try {
     const response = await axios.post(`${endpointAPI}orders/simulate-payment/`,
-      paymentForm, cart_id,
+      { ...paymentForm, cart_id },
       {
         headers: {
           'Authorization' : `Bearer ${token}`

@@ -7,18 +7,19 @@ import Button from '../components/Button';
 const Cart = () => {
   const { cart, cartItems, fetchCartData } = useCart();
   const [showPaymentForm, setShowPaymentForm] = useState(false);
-  const [paymentForm, setPaymentForm] = useState({});
-  const [paymentMethod, setPaymentMethod] = useState('card');
+  const [paymentForm, setPaymentForm] = useState({
+    payment_method: 'Card',
+    card_number: '',
+    card_expiry: '',
+    card_cvv: '',
+  });
 
-  const handlePaymentMethodChange = (e) => {
-    setPaymentMethod(e.target.value);
-  };
-
-  const handlePaymentFormChange = (e) => {
-    setPaymentForm({
-      ...paymentForm,
-      [e.target.name]: e.target.value,
-    });
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setPaymentForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
   };
 
   const handleRemoveFromCart = async (cartItemId, quantity) => {
@@ -40,6 +41,7 @@ const Cart = () => {
 
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
+
     const token = localStorage.getItem('accessToken');
     try {
       const paymentResponse = await makePayment({token, cart_id: cart.id, paymentForm});
@@ -47,6 +49,7 @@ const Cart = () => {
         const payment_id = paymentResponse.payment_id;
 
         await placeOrder({token, cart_id:cart.id, payment_id});
+        alert('Order placed succesfully!');
       }
     } catch (error) {
 
@@ -103,59 +106,62 @@ const Cart = () => {
 
           {/* Payment method selection */}
           <div className="mb-4">
-            <label htmlFor="paymentMethod" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="payment_method" className="block text-sm font-medium text-gray-700">
               Payment Method
             </label>
             <select
-              id="paymentMethod"
-              name="paymentMethod"
-              value={paymentMethod}
-              onChange={handlePaymentMethodChange}
+              id="payment_method"
+              name="payment_method"
+              value={paymentForm.payment_method}
+              onChange={handleFormChange}
               className="mt-1 block w-full p-2 border border-gray-300 rounded"
             >
-              <option value="card">Card</option>
-              <option value="paypal">PayPal</option>
+              <option value="Card">Card</option>
+              <option value="Paypal">PayPal</option>
             </select>
           </div>
 
           {/* Card payment inputs - visible if 'card' is selected */}
-          {paymentMethod === 'card' && (
+          {paymentForm.payment_method === 'Card' && (
             <>
               <div className="mb-4">
-                <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="card_number" className="block text-sm font-medium text-gray-700">
                   Card Number
                 </label>
                 <input
                   type="text"
-                  id="cardNumber"
-                  name="cardNumber"
-                  onChange={handlePaymentFormChange}
+                  id="card_number"
+                  name="card_number"
+                  value={paymentForm.card_number}
+                  onChange={handleFormChange}
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="card_expiry" className="block text-sm font-medium text-gray-700">
                   Expiry Date
                 </label>
                 <input
                   type="text"
-                  id="expiryDate"
-                  name="expiryDate"
-                  onChange={handlePaymentFormChange}
+                  id="card_expiry"
+                  name="card_expiry"
+                  value={paymentForm.card_expiry}
+                  onChange={handleFormChange}
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="cvv" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="card_cvv" className="block text-sm font-medium text-gray-700">
                   CVV
                 </label>
                 <input
                   type="text"
-                  id="cvv"
-                  name="cvv"
-                  onChange={handlePaymentFormChange}
+                  id="card_cvv"
+                  name="card_cvv"
+                  value={paymentForm.card_cvv}
+                  onChange={handleFormChange}
                   required
                   className="mt-1 block w-full p-2 border border-gray-300 rounded"
                 />
@@ -164,7 +170,7 @@ const Cart = () => {
           )}
 
           {/* PayPal option - visible if 'paypal' is selected */}
-          {paymentMethod === 'paypal' && (
+          {paymentForm.payment_method === 'Paypal' && (
             <div className="mb-4">
               <p className="text-sm text-gray-500">
                 Click 'Place Order' to proceed with PayPal payment.
@@ -176,7 +182,7 @@ const Cart = () => {
             type="submit"
             className="ml-2 px-4 py-2 bg-green-500 text-white"
           >
-            {paymentMethod === 'paypal' ? 'Place Order' : 'Submit Payment'}
+            {paymentForm.payment_method === 'Paypal' ? 'Place Order' : 'Submit Payment'}
           </button>
         </form>
       )}
