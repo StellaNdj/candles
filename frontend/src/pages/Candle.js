@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import { useCart } from "../contexts/CartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import Footer from "../components/Footer";
 
 const Candle = () => {
   const [product, setProduct] = useState();
@@ -128,8 +129,8 @@ const Candle = () => {
             <p>{review.comment}</p>
           </div>
         )}
-
       </div>
+      <Footer/>
     </>
   )
 }

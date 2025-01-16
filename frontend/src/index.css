@@ -27,6 +27,7 @@ p {
 
 .section-border, .section-side-border {
   border: 1px solid #f6f3f3;
+  border-bottom: none;
 }
 
 .infos > a > p {
@@ -41,6 +42,10 @@ p {
 
 .nav-border {
   border-bottom: 1px solid #f6f3f3;
+}
+
+.footer-border {
+  border-top: 1px solid #f6f3f3;
 }
 
 .main-btn {

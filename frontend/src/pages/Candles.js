@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchProducts } from "../endpoints";
 import Navbar from '../components/Navbar';
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const Candles = () => {
   const [products, setProducts] = useState([]);
@@ -35,6 +36,7 @@ const Candles = () => {
           </div>
         )}
       </div>
+      <Footer/>
     </>
   )
 }
