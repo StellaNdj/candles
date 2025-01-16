@@ -3,8 +3,10 @@ import { useCart } from "../contexts/CartContext";
 import Navbar from "../components/Navbar";
 import { makePayment, placeOrder, removeFromCart } from '../endpoints';
 import Button from '../components/Button';
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate()
   const { cart, cartItems, fetchCartData } = useCart();
   const [showPaymentForm, setShowPaymentForm] = useState(false);
   const [paymentForm, setPaymentForm] = useState({
@@ -31,14 +33,6 @@ const Cart = () => {
     }
   }
 
-  // const handlePlaceOrder = async (cart_id) => {
-  //   const token = localStorage.getItem('accessToken')
-  //   if (token) {
-  //     await makePayment({token, cart_id})
-  //     await placeOrder({token, cart_id})
-  //   }
-  // }
-
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
 
@@ -50,6 +44,7 @@ const Cart = () => {
 
         await placeOrder({token, cart_id:cart.id, payment_id});
         alert('Order placed succesfully!');
+        navigate('/dashboard');
       }
     } catch (error) {
 

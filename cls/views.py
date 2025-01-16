@@ -9,11 +9,20 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import RetrieveUpdateAPIView
 from django.utils import timezone
+from rest_framework.filters import SearchFilter
 # Create your views here.
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['name', 'ingredients']
+
+    @action(detail=False, methods=['GET'], url_path='homepage-snippet')
+    def homepage_snippet(self, request):
+        products = Product.objects.all()[:4]
+        serializer = self.get_serializer(products, many=True)
+        return Response(serializer.data)
 
 class RegisterViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()

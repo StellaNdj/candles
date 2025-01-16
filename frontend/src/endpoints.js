@@ -12,6 +12,15 @@ export const fetchProducts = async () => {
   }
 }
 
+export const fetchHomeProducts = async () => {
+  try {
+    const response = await axios.get(`${endpointAPI}products/homepage-snippet/`);
+    return response.data;
+  } catch (error) {
+    console.log('Error while fetching the homepage snippet products', error)
+  }
+}
+
 export const fetchProduct = async ({productId}) => {
   try {
     const response = await axios.get(`${endpointAPI}products/${productId}`);
@@ -163,5 +172,14 @@ export const updateProfile = async ({token, formData}) => {
       return response.data;
   } catch (error) {
     console.log('Error while updating the data', error)
+  }
+}
+
+export const search = async ({query}) => {
+  try {
+    const response = await axios.get(`${endpointAPI}products/?search=${query}`);
+    return response.data;
+  } catch (error) {
+    console.log('Error while searching')
   }
 }

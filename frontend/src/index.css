@@ -50,7 +50,8 @@ p {
 
 .main-btn:hover {
   transition: 0.3s;
-  border-bottom: 1px solid black;
+  background-color: black;
+  color: white;
 }
 
 .shopping-icon {
@@ -75,4 +76,48 @@ p {
 
 .cview-img-banner {
   width: 40%
+}
+
+/* Home */
+.home-bg {
+  background-color: #bab9ae;
+}
+.banner-w-h {
+  max-width: 50%;
+}
+.banner-w-p {
+  max-width: 60%;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 }
