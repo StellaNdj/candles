@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
 import { fetchHomeProducts } from "../endpoints";
@@ -31,7 +31,7 @@ const Home = () => {
     fetchData();
   }, [])
 
-  if(!products) return <div>Loading...</div>
+  if(!products) return <div><FontAwesomeIcon icon={faSpinner} spin/></div>
 
   return(
     <>

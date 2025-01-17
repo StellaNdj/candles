@@ -246,12 +246,14 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
         comment = request.data.get('comment')
         rating = request.data.get('rating')
+        title = request.data.get('title')
 
         review = Review.objects.create(
             customer = customer,
             product = product,
             comment = comment,
-            rating = rating
+            rating = rating,
+            title = title
         )
 
         serializer = ReviewSerialier(review)

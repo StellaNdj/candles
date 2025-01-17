@@ -138,22 +138,21 @@ export const getReviews = async ({token, productId}) => {
         'Authorization': `Bearer ${token}`
       }
     })
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log('Errow while gettings review:', error)
   }
 }
 
-export const addReview = async ({token, productId, comment, rating}) => {
+export const addReview = async ({token, productId, title, comment, rating}) => {
   try {
-    const response = await axios.post(`${endpointAPI}products/${productId}/reviews/`, {
-      data: { rating, comment },
+    const response = await axios.post(`${endpointAPI}products/${productId}/reviews/`,
+    { title, rating, comment },
+    {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     })
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log('Error while adding a review', error)

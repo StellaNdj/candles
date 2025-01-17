@@ -30,6 +30,10 @@ p {
   border-bottom: none;
 }
 
+.promise-b {
+  border: 1px solid #f6f3f3;
+}
+
 .infos > a > p {
   color: gray;
   line-height: 2rem;

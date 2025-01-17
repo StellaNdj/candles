@@ -157,6 +157,7 @@ class Payment(models.Model):
 class Review(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    title = models.CharField(max_length=100)
     rating = models.PositiveIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
