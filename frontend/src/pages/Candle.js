@@ -171,14 +171,14 @@ const Candle = () => {
       </div>
 
       {/* Reviews section */}
-      <div className="p-12">
+      <div className="p-16 flex flex-col justify-center">
         <Button text={'Write a review'} onClick={() => setShowReviewForm(!showReviewForm)}/>
         {showReviewForm && (
           <form onSubmit={handleAddReview}>
             <label className="block text-sm font-medium text-gray-700">Note</label>
             <StarRating rating={reviewForm.rating} setRating={(rating) => setReviewForm({ ...reviewForm, rating })} />
 
-            <label>Title of your review</label>
+            <label className="block text-sm font-medium text-gray-700">Title of your review</label>
             <input
               type='text'
               name='title'
@@ -200,18 +200,20 @@ const Candle = () => {
         )}
 
         {reviews.length > 0 ?
-          <div>
-            {reviews.map((review) =>
-              <div key={review.id}>
-                <p>{review.title}</p>
-                <p>{review.date_created}</p>
-                <p>{review.customer_first_name} {review.customer_last_name}</p>
+          <div className=''>
+            {reviews.map((review, index) =>
+              <div key={review.id} className={`pb-4 ${index !== reviews.length - 1 ? 'border-b border-gray-300' : ''}`}>
+                <div className='flex justify-between'>
+                  <p className='font-bold mt-4 text-base'>{review.customer_first_name} {review.customer_last_name}</p>
+                  <p>{review.date_created}</p>
+                </div>
                 <p>
                   {[...Array(5)].map((_, i) => (
                     <span key={i} style={{ color: i < review.rating ? 'gold' : 'gray', fontSize: '20px' }}>★</span>
                   ))}
                 </p>
-                <p>{review.comment}</p>
+                <p className='font-bold mt-4'>{review.title}</p>
+                <p className=''>{review.comment}</p>
               </div>
             )}
           </div>
