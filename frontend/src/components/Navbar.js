@@ -46,7 +46,7 @@ const Navbar = () => {
   }
 
   return(
-    <nav className="flex justify-between items-center nav-border p-4 bg-white sticky top-0">
+    <nav className="flex justify-between items-center nav-border p-4 bg-white sticky top-0 z-40">
       <div className='mx-2'>
         <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' onClick={openModal} className='cursor-pointer'/>
       </div>
@@ -63,12 +63,12 @@ const Navbar = () => {
           <p className='mx-1'>ABOUT US</p>
         </div>
       </div>
-      <div className='mx-2'>
+      <div className='mx-2 flex'>
         <FontAwesomeIcon icon={faUser} size='lg' className='mx-2 cursor-pointer' onClick={handleIconClick}/>
-        <FontAwesomeIcon icon={faBagShopping} size='lg' className='mx-2 cursor-pointer' onClick={handleCartClick} />
-        {user ?
-            <span className='shopping-icon'>{cartCount}</span> : <span className='shopping-icon'>0</span>
-        }
+        <div className="flex items-center cursor-pointer" onClick={handleCartClick}>
+          <FontAwesomeIcon icon={faBagShopping} size="lg" className="mx-2" />
+          <span className="shopping-icon">{user ? cartCount : 0}</span>
+        </div>
         {user && (
           <>
             <span className='user-icon'>{user[0].username}</span>

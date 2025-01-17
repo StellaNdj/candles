@@ -6,7 +6,6 @@ import { updateProfile } from "../endpoints";
 const Profile = () => {
   const { user } = useContext(AuthContext);
 
-  // State for form data with existing infos
   const [formData, setFormData] = useState({
     username: user[0]?.username || "",
     first_name: user[0]?.first_name || "",
@@ -23,7 +22,6 @@ const Profile = () => {
   const handleChange = (e) => {
     const {name, value} = e.target;
 
-    // Update the corresponding field in the form data
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -44,12 +42,14 @@ const Profile = () => {
 
   return (
     <>
-      <div className="flex justify-center m-8">
+      <div className="flex top: 0.2rem; m-8 border p-8">
           <form onSubmit={handleSubmit}>
-          <h2 className="font-bold text-2xl">Edit Your Profile</h2>
+          <h2 className="font-bold text-2xl text-center">Edit Your Profile</h2>
 
-          <label className="block font-medium text-gray-900 text-lg">
-            Username:
+          <div className="font-medium text-lg flex w-full m-2">
+            <label className="mx-8 w-28" >
+              Username
+            </label>
             <input
               type="text"
               name="username"
@@ -58,22 +58,26 @@ const Profile = () => {
               required
               className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
             />
-          </label>
+          </div>
 
-          <label className="block font-medium text-gray-900 text-lg">
-            First Name:
-            <input
-              type="text"
-              name="first_name"
-              value={formData.first_name}
-              onChange={handleChange}
-              required
-              className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
-            />
-          </label>
+          <div className="font-medium text-lg flex w-full m-2">
+            <label className="mx-8 w-28" >
+              First Name
+            </label>
+              <input
+                type="text"
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleChange}
+                required
+                className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
+              />
+          </div>
 
-          <label className="block font-medium text-gray-900 text-lg">
-            Last Name:
+          <div className="font-medium text-lg flex w-full m-2">
+            <label className="mx-8 w-28" >
+              Last Name
+            </label>
             <input
               type="text"
               name="last_name"
@@ -82,10 +86,12 @@ const Profile = () => {
               required
               className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
             />
-          </label>
+          </div>
 
-          <label className="block font-medium text-gray-900 text-lg">
-            Email:
+          <div className="font-medium text-lg flex w-full m-2">
+            <label className="mx-8 w-28">
+              Email
+            </label>
             <input
               type="email"
               name="email"
@@ -94,10 +100,12 @@ const Profile = () => {
               required
               className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
             />
-          </label>
+          </div>
 
-          <label className="block font-medium text-gray-900 text-lg">
-            Phone:
+          <div className="font-medium text-lg flex w-full m-2">
+            <label className="mx-8 w-28">
+              Phone
+            </label>
             <input
               type="tel"
               name="phone_number"
@@ -106,22 +114,26 @@ const Profile = () => {
               required
               className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
             />
-          </label>
+          </div>
 
-          <label className="block font-medium text-gray-900 text-lg">
-            Street address:
-            <input
-              type="text"
-              name="street_address"
-              value={formData.street_address}
-              onChange={handleChange}
-              required
-              className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
-            />
-          </label>
+          <div className='font-medium text-lg flex w-full m-2'>
+            <label className="mx-8 w-28" >
+              Street address
+            </label>
+              <input
+                type="text"
+                name="street_address"
+                value={formData.street_address}
+                onChange={handleChange}
+                required
+                className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
+              />
+          </div>
 
-          <label className="block font-medium text-gray-900 text-lg">
-            Country:
+          <div className="font-medium text-lg flex w-full m-2">
+            <label className="mx-8 w-28">
+              Country
+            </label>
             <input
               type="text"
               name="country"
@@ -130,10 +142,12 @@ const Profile = () => {
               required
               className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
             />
-          </label>
+          </div>
 
-          <label className="block font-medium text-gray-900 text-lg">
-            City:
+          <div className="font-medium text-lg flex w-full m-2">
+            <label className="mx-8 w-28">
+              City
+            </label>
             <input
               type="text"
               name="city"
@@ -142,10 +156,12 @@ const Profile = () => {
               required
               className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
             />
-          </label>
+          </div>
 
-          <label className="block font-medium text-gray-900 text-lg">
-            State:
+          <div className="font-medium text-lg flex w-full m-2">
+            <label className="mx-8 w-28">
+              State
+            </label>
             <input
               type="text"
               name="state"
@@ -154,10 +170,12 @@ const Profile = () => {
               required
               className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
             />
-          </label>
+          </div>
 
-          <label className="block font-medium text-gray-900 text-lg">
-            Postal code:
+          <div className="font-medium text-lg flex w-full m-2">
+            <label className="mx-8 w-28">
+              Postal code
+            </label>
             <input
               type="text"
               name="postal_code"
@@ -166,9 +184,11 @@ const Profile = () => {
               required
               className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6 border border-black"
             />
-          </label>
+          </div>
 
-          <Button text={'Update Profile'} type={'submit'}/>
+          <div className='flex justify-center'>
+            <Button text={'Update Profile'} type={'submit'}/>
+          </div>
         </form>
       </div>
     </>

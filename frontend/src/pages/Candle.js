@@ -34,7 +34,7 @@ const Candle = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem('accessToken');
+      // const token = localStorage.getItem('accessToken');
       const data = await fetchProduct({productId: candleId});
       setProduct(data);
 

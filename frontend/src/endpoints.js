@@ -182,3 +182,16 @@ export const search = async ({query}) => {
     console.log('Error while searching')
   }
 }
+
+export const getOrders = async ({token}) => {
+  try {
+    const response = await axios.get(`${endpointAPI}orders/`, {
+      headers: {
+        'Authorization' : `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error while fetching orders')
+  }
+}
