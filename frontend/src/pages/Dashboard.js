@@ -5,6 +5,7 @@ import Profile from "./Profile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { getOrders } from "../endpoints";
+import OrderStatus from "../components/OrderStatus";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -83,7 +84,8 @@ const Dashboard = () => {
                     <p>Expires {order.payment.card_expiry}</p>
                   </>
                 )}
-                <p>Status : {order.status}</p>
+                <OrderStatus status={order.status}/>
+                {/* <p>Status : {order.status}</p> */}
               </div>
 
             ))}
