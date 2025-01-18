@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 import { makePayment, placeOrder, removeFromCart } from '../endpoints';
 import Button from '../components/Button';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/ReactToastify.css';
 
 const Cart = () => {
   const navigate = useNavigate()
@@ -41,10 +43,15 @@ const Cart = () => {
       const paymentResponse = await makePayment({token, cart_id: cart.id, paymentForm});
       if(paymentResponse && paymentResponse.message === 'Payment successful.') {
         const payment_id = paymentResponse.payment_id;
-
         await placeOrder({token, cart_id:cart.id, payment_id});
-        alert('Order placed succesfully!');
+        fetchCartData();
         navigate('/dashboard');
+      } else {
+        toast.error(`Something went wrong.. Try a different payment method`, {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+        });
       }
     } catch (error) {
 
@@ -91,96 +98,101 @@ const Cart = () => {
       ))}
         <h3>Total: {cart.total_price}€</h3>
         <Button text={`Pay ${cart.total_price}€`} onClick={() => setShowPaymentForm(true) }/>
-        {/* <Button text={'Place Order'} onClick={() => handlePlaceOrder(cart.id)} /> */}
     </div>
 
      {/* Display the payment form conditionally */}
      {showPaymentForm && (
-        <form onSubmit={handlePaymentSubmit} className="mt-4 w-8/12">
-          <h3 className="text-center font-bold text-xl mb-2">Payment Details</h3>
+        <div className='flex justify-center my-4'>
+          <form onSubmit={handlePaymentSubmit} className="mt-4 w-8/12">
+            <h3 className="text-center font-bold text-xl mb-2">Payment Details</h3>
 
-          {/* Payment method selection */}
-          <div className="mb-4">
-            <label htmlFor="payment_method" className="block text-sm font-medium text-gray-700">
-              Payment Method
-            </label>
-            <select
-              id="payment_method"
-              name="payment_method"
-              value={paymentForm.payment_method}
-              onChange={handleFormChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded"
-            >
-              <option value="Card">Card</option>
-              <option value="Paypal">PayPal</option>
-            </select>
-          </div>
-
-          {/* Card payment inputs - visible if 'card' is selected */}
-          {paymentForm.payment_method === 'Card' && (
-            <>
-              <div className="mb-4">
-                <label htmlFor="card_number" className="block text-sm font-medium text-gray-700">
-                  Card Number
-                </label>
-                <input
-                  type="text"
-                  id="card_number"
-                  name="card_number"
-                  value={paymentForm.card_number}
-                  onChange={handleFormChange}
-                  required
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="card_expiry" className="block text-sm font-medium text-gray-700">
-                  Expiry Date
-                </label>
-                <input
-                  type="text"
-                  id="card_expiry"
-                  name="card_expiry"
-                  value={paymentForm.card_expiry}
-                  onChange={handleFormChange}
-                  required
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="card_cvv" className="block text-sm font-medium text-gray-700">
-                  CVV
-                </label>
-                <input
-                  type="text"
-                  id="card_cvv"
-                  name="card_cvv"
-                  value={paymentForm.card_cvv}
-                  onChange={handleFormChange}
-                  required
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-            </>
-          )}
-
-          {/* PayPal option - visible if 'paypal' is selected */}
-          {paymentForm.payment_method === 'Paypal' && (
+            {/* Payment method selection */}
             <div className="mb-4">
-              <p className="text-sm text-gray-500">
-                Click 'Place Order' to proceed with PayPal payment.
-              </p>
+              <label htmlFor="payment_method" className="block text-sm font-medium text-gray-700">
+                Payment Method
+              </label>
+              <select
+                id="payment_method"
+                name="payment_method"
+                value={paymentForm.payment_method}
+                onChange={handleFormChange}
+                className="mt-1 block w-full p-2 border border-gray-300 rounded"
+              >
+                <option value="Card">Card</option>
+                <option value="Paypal">PayPal</option>
+              </select>
             </div>
-          )}
 
-          <button
-            type="submit"
-            className="ml-2 px-4 py-2 bg-green-500 text-white"
-          >
-            {paymentForm.payment_method === 'Paypal' ? 'Place Order' : 'Submit Payment'}
-          </button>
-        </form>
+            {/* Card payment inputs - visible if 'card' is selected */}
+            {paymentForm.payment_method === 'Card' && (
+              <>
+                <div className="mb-4">
+                  <label htmlFor="card_number" className="block text-sm font-medium text-gray-700">
+                    Card Number
+                  </label>
+                  <input
+                    type="text"
+                    id="card_number"
+                    name="card_number"
+                    value={paymentForm.card_number}
+                    onChange={handleFormChange}
+                    required
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="card_expiry" className="block text-sm font-medium text-gray-700">
+                    Expiry Date
+                  </label>
+                  <input
+                    type="text"
+                    id="card_expiry"
+                    name="card_expiry"
+                    value={paymentForm.card_expiry}
+                    onChange={handleFormChange}
+                    required
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="card_cvv" className="block text-sm font-medium text-gray-700">
+                    CVV
+                  </label>
+                  <input
+                    type="text"
+                    id="card_cvv"
+                    name="card_cvv"
+                    value={paymentForm.card_cvv}
+                    onChange={handleFormChange}
+                    required
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+              </>
+            )}
+
+            {/* PayPal option - visible if 'paypal' is selected */}
+            {paymentForm.payment_method === 'Paypal' && (
+              <div className="mb-4">
+                <p className="text-sm text-gray-500">
+                  Click 'Place Order' to proceed with PayPal payment.
+                </p>
+              </div>
+            )}
+
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="ml-2 px-4 py-2 bg-green-500 text-white"
+              >
+                {paymentForm.payment_method === 'Paypal' ? 'Place Order' : 'Submit Payment'}
+              </button>
+            </div>
+          </form>
+          <ToastContainer/>
+        </div>
       )}
+
     </>
   )
 

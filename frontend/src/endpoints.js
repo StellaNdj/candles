@@ -3,6 +3,18 @@ import axios from 'axios';
 
 const endpointAPI = "http://localhost:8000/api/";
 
+export const register = async ({username, first_name, last_name, email, password}) => {
+  try {
+    const response = await axios.post(`${endpointAPI}register/`,
+      { username, first_name, last_name, email, password }
+    );
+    const loginResponse = await loginUser({ username, password });
+    return { registration: response.data, token: loginResponse };
+  } catch (error) {
+    console.log('Error while registering');
+  }
+}
+
 export const fetchProducts = async () => {
   try {
     const response = await axios.get(`${endpointAPI}products/`);
@@ -99,7 +111,6 @@ export const removeFromCart = async({token, cartItemId, quantity}) => {
 }
 
 export const makePayment = async ({token, cart_id, paymentForm}) => {
-  console.log({ ...paymentForm, cart_id });
   try {
     const response = await axios.post(`${endpointAPI}orders/simulate-payment/`,
       { ...paymentForm, cart_id },
@@ -108,7 +119,6 @@ export const makePayment = async ({token, cart_id, paymentForm}) => {
           'Authorization' : `Bearer ${token}`
         }
     })
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log('Error while making payment', error)

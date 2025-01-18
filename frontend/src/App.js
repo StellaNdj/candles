@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import { CartProvider } from './contexts/CartContext';
 import Cart from './pages/Cart';
 import Dashboard from './pages/Dashboard';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             {/* Public routes */}
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
+            <Route path='/register' element={<Register/>}/>
 
             {/* Private routes */}
             <Route path="/candles" element={<ProtectedRoute element={Candles} />} />

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { getOrders } from "../endpoints";
 import OrderStatus from "../components/OrderStatus";
+import Button from "../components/Button";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -33,15 +34,15 @@ const Dashboard = () => {
     <>
       <Navbar/>
       <div className="p-12">
-        <h2 className="font-bold text-4xl">Welcome {user[0].username} {user[0].first_name} {user[0].last_name}</h2>
+        <h2 className="font-bold text-4xl my-2">Welcome {user[0].username} {user[0].first_name} {user[0].last_name}</h2>
 
         {/* Orders info */}
-        <h3 className='font-bold text-2xl'>Order history</h3>
+        <h3 className='font-bold text-2xl my-2'>Order history</h3>
         {orders.length > 0 ? (
           <div className="border p-4">
             {orders.map((order) => (
               <div key={order.id}>
-                <div className='flex justify-between border-b'>
+                <div className='flex justify-between items-center border-b'>
                   <div>
                     <p className="font-bold">Order number</p>
                     <p>{order.id}</p>
@@ -60,13 +61,13 @@ const Dashboard = () => {
                     <p className="font-bold">Total amount</p>
                     <p className="font-bold">{order.total_price}€</p>
                   </div>
-                  <button className="cursor-pointer" onClick={() => setShowDetails(!showDetails)}>View details</button>
-                  <button className="cursor-pointer" onClick={() => setShowInvoice(!showInvoice)}>View invoice</button>
+                  <Button text={'View details'} onClick={() => setShowDetails(!showDetails)}/>
+                  <Button text={'View invoice'} onClick={() => setShowInvoice(!showInvoice)}/>
                 </div>
                 {showDetails && (
                   <>
                     {order.items.map((item) =>
-                      <div key={item.id} className="flex justify-between">
+                      <div key={item.id} className="flex justify-between p-2">
                         <img className='w-28' src={`http://localhost:8000/${item.item_image}`} alt={item.item_name}/>
                         <div className='flex'>
                           <p>{item.item_name} x {item.quantity} </p>
@@ -85,7 +86,6 @@ const Dashboard = () => {
                   </>
                 )}
                 <OrderStatus status={order.status}/>
-                {/* <p>Status : {order.status}</p> */}
               </div>
 
             ))}

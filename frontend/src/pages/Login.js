@@ -25,6 +25,10 @@ const Login = () => {
     }
   }
 
+  const handleRegister = () => {
+    navigate('/register');
+  }
+
   return (
     <div>
         <h1 className="text-5xl font-bold bg-black text-white p-4">Login</h1>
@@ -56,6 +60,7 @@ const Login = () => {
           </form>
           {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
+        <p className='text-center text-gray-500'>Don't have an account? <button onClick={handleRegister} className='hover:underline'>Register</button></p>
     </div>
 );
 
