@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
+  const [showInvoice, setShowInvoice] = useState(false);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -59,16 +60,27 @@ const Dashboard = () => {
                     <p className="font-bold">{order.total_price}€</p>
                   </div>
                   <button className="cursor-pointer" onClick={() => setShowDetails(!showDetails)}>View details</button>
+                  <button className="cursor-pointer" onClick={() => setShowInvoice(!showInvoice)}>View invoice</button>
                 </div>
                 {showDetails && (
                   <>
                     {order.items.map((item) =>
-                      <div lye={item.id}>
-                        <img src={item.image} alt={item.name}/>
-                        <h3>{item.name} x {item.quantity}</h3>
-                        <p>{item.price}€</p>
+                      <div key={item.id} className="flex justify-between">
+                        <img className='w-28' src={`http://localhost:8000/${item.item_image}`} alt={item.item_name}/>
+                        <div className='flex'>
+                          <p>{item.item_name} x {item.quantity} </p>
+                        </div>
+                        <p className="font-bold">{item.price}€</p>
                       </div>
                     )}
+                  </>
+                )}
+
+                {showInvoice && (
+                  <>
+                    <h3 className="font-bold">Payment information</h3>
+                    <p>Ending with {order.payment.card_number}</p>
+                    <p>Expires {order.payment.card_expiry}</p>
                   </>
                 )}
                 <p>Status : {order.status}</p>

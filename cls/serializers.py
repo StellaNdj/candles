@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Cart, CartItem, Order, OrderItem, Review, Customer
+from .models import Product, Cart, CartItem, Order, OrderItem, Review, Customer, Payment
 from django.contrib.auth.models import User
 
 
@@ -85,23 +85,32 @@ class CartSerializer(serializers.ModelSerializer):
 
 class OrderItemSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField()
+    item_name = serializers.ReadOnlyField(source='product.name')
+    item_image = serializers.ReadOnlyField(source='product.image.url')
 
     class Meta:
         model = OrderItem
-        fields = ['id', 'product', 'quantity', 'price', 'total_price']
+        fields = ['id', 'product', 'quantity', 'price', 'total_price', 'item_name', 'item_image']
 
     def get_total_price(self, obj):
         return obj.total_price()
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ['payment_method', 'card_number', 'card_expiry', 'transaction_id', 'amount', 'status', 'payment_date']
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
+    payment = PaymentSerializer(read_only=True)
 
     class Meta:
         model = Order
-        fields = ['id', 'customer', 'total_price', 'order_date', 'status', 'items']
+        fields = ['id', 'customer', 'total_price', 'order_date', 'status', 'items', 'payment']
 
     def get_total_price(self, obj):
         return obj.total_price()
+
 
 class ReviewSerialier(serializers.ModelSerializer):
     customer_first_name = serializers.ReadOnlyField(source='customer.first_name')
